@@ -1,0 +1,126 @@
+import * as React from 'react';
+import styles from './Popupshow.module.scss';
+import type { IPopupshowProps } from './IPopupshowProps';
+import { escape } from '@microsoft/sp-lodash-subset';
+
+export default class Popupshow extends React.Component<IPopupshowProps, { isModalOpen: boolean }> {
+  constructor(props: IPopupshowProps) {
+    super(props);
+    this.state = {
+      isModalOpen: false,
+    };
+  }
+
+  private openModal = () => {
+    this.setState({ isModalOpen: true });
+  };
+
+  private closeModal = () => {
+    this.setState({ isModalOpen: false });
+  };
+
+  public render(): React.ReactElement<IPopupshowProps> {
+    const { userDisplayName } = this.props;
+    const { isModalOpen } = this.state;
+
+    return (
+      <div>
+        {isModalOpen && (
+          <div id="openModal" className={styles.modalDialog}>
+            <div className={styles.closeModalbackground} onClick={this.closeModal}></div>
+            <div className={styles.conteudo}>
+              <div className={styles.cgif3}>
+                <a href="#closeModal" title="Close" onClick={this.closeModal} className={styles.closeModal}/>
+                <h3>Olá, {escape(userDisplayName)}</h3>
+                <h1 id="titulo">{this.props.title}</h1>
+                <hr />
+                <h3 id="subtitulo">{this.props.subtitle}</h3>
+                <p>{this.props.description}</p>
+                <hr />
+              </div>
+              <div className={styles.cgif}>
+                <img alt="" src={this.props.image} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className={styles.cardopenmodal}>
+          <div className={styles.cardopenmodalcgif3}>
+            <div onClick={this.openModal} className={styles.openmodal}>
+            <div className={styles.cardopenmodalcgif}>
+                <h1 id="titulo">{this.props.title}</h1>
+                <h3 id="cardopenmodalsubtitulo">{this.props.subtitle}</h3>
+                <p>{this.props.description}</p>
+                <hr/>
+                <img alt="" src={this.props.image} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+
+
+
+
+import * as React from 'react';
+import styles from './Popupshow.module.scss';
+import type { IPopupshowProps } from './IPopupshowProps';
+import { escape } from '@microsoft/sp-lodash-subset';
+
+
+
+export default class Popupshow extends React.Component<IPopupshowProps, {}> {
+  public render(): React.ReactElement<IPopupshowProps> {
+
+    const {
+      userDisplayName,
+    } = this.props;
+
+    return (
+      
+      <div>
+        <div id="openModal" className={styles.modalDialog}>
+          <a href="#openModal" title="closeModalbackground" className={styles.closeModalbackground}/>
+          
+          <div>
+            <div className={styles.conteudo}>
+              <div className={styles.cgif3}>
+                <a href="#openModal" title="Close" className={styles.closeModal}/>
+                <h3>Olá, {escape(userDisplayName)}</h3>
+                <h1 id="titulo">{this.props.title}</h1>
+                <hr/>
+                <h3 id="subtitulo">{this.props.subtitle}</h3>
+                <p>{this.props.description}</p>
+                <hr/>
+              </div>
+              <div className={styles.cgif}>
+                <img alt="" src={this.props.image} />
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+        <div className={styles.cardopenmodal}>
+          <div className={styles.cardopenmodalcgif3}>
+            <a href="#closeModal" title="Open" className={styles.openmodal}>
+              <div className={styles.cardopenmodalcgif}>
+                <h1 id="titulo">{this.props.title}</h1>
+                <h3 id="cardopenmodalsubtitulo">{this.props.subtitle}</h3>
+                <p>{this.props.description}</p>
+                <hr/>
+                <img alt="" src={this.props.image} />
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
